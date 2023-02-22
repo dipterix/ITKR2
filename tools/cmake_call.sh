@@ -6,7 +6,7 @@ NCORES=`${RSCRIPT_BIN} -e "cat(min(2, parallel::detectCores(logical = FALSE)))"`
 TEMPPATH=$1
 
 #### CMAKE CONFIGURATION ####
-. ./src/scripts/cmake_config.sh
+. ./inst/scripts/cmake_config.sh
 if test -z "${CMAKE_BIN}"; then
   CMAKE_BIN="$1"
   if test -z "${CMAKE_BIN}"; then

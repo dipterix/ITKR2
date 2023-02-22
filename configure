@@ -3249,16 +3249,16 @@ if test x"${CMAKE_BIN}" == x"no"; then
 fi
 
 # unpack ITK
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: unpacking ITK... to ${builder_path}" >&5
-printf "%s\n" "unpacking ITK... to ${builder_path}" >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: unpacking ITK... to ${TMPDIR}/ITKR2-builder" >&5
+printf "%s\n" "unpacking ITK... to ${TMPDIR}/ITKR2-builder" >&6; }
 "${R_HOME}/bin/Rscript" --no-save --no-restore 'tools/unpack_itk.R' ${TMPDIR}
 
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: compiling ITK" >&5
 printf "%s\n" "compiling ITK" >&6; }
 ./tools/cmake_call.sh "${TMPDIR}"
 
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: removing temporary directory ITK-builder" >&5
-printf "%s\n" "removing temporary directory ITK-builder" >&6; }
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: removing temporary directory ITKR2-builder" >&5
+printf "%s\n" "removing temporary directory ITKR2-builder" >&6; }
 rm -rf ${TMPDIR}/ITKR2-builder
 
 

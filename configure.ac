@@ -34,13 +34,13 @@ if test x"${CMAKE_BIN}" == x"no"; then
 fi
 
 # unpack ITK
-AC_MSG_RESULT([unpacking ITK... to ${builder_path}])
+AC_MSG_RESULT([unpacking ITK... to ${TMPDIR}/ITKR2-builder])
 "${R_HOME}/bin/Rscript" --no-save --no-restore 'tools/unpack_itk.R' ${TMPDIR}
 
 AC_MSG_RESULT([compiling ITK])
 ./tools/cmake_call.sh "${TMPDIR}"
 
-AC_MSG_RESULT([removing temporary directory ITK-builder])
+AC_MSG_RESULT([removing temporary directory ITKR2-builder])
 rm -rf ${TMPDIR}/ITKR2-builder
 
 

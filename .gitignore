@@ -20,3 +20,4 @@ docs
 .R
 valgrind.R
 valgrind.sh
+conftest.dSYM

@@ -16,3 +16,4 @@ autom4te.cache/
 ^CRAN-RELEASE$
 ^\.Renviron$
 ^\.Rhistory$
+^conftest\.dSYM$
