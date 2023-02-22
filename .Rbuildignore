@@ -17,3 +17,4 @@ autom4te.cache/
 ^\.Renviron$
 ^\.Rhistory$
 ^conftest\.dSYM$
+^confdefs\.h$

@@ -21,3 +21,4 @@ docs
 valgrind.R
 valgrind.sh
 conftest.dSYM
+confdefs.h

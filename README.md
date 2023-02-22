@@ -2,6 +2,7 @@
 # ITKR2
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/dipterix/ITKR2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dipterix/ITKR2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of ITKR2 is to ...
