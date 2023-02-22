@@ -1,0 +1,52 @@
+#!/bin/bash
+
+CXX_STD=CXX17
+CC=`${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD config CC`
+CXX=`${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD config CXX`
+JTHREADS=1
+CMAKE_BUILD_TYPE=Release
+
+RSCRIPT_BIN=${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe
+NCORES=`${RSCRIPT_BIN} -e "cat(min(2, parallel::detectCores(logical = FALSE)))"`
+current_workdir=${pwd}
+
+# unpack ITK
+"${RSCRIPT_BIN}" --no-save --no-restore 'tools/unpack_itk.R' .
+
+ADDITIONAL_FLAGS=" -fPIC -O2 -Wno-c++11-long-long "
+cd ./ITKR2-builder/ITK-build
+
+cmake \
+    -DCMAKE_BUILD_TYPE:STRING="${CMAKE_BUILD_TYPE}" \
+    -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS} ${ADDITIONAL_FLAGS} -DNDEBUG  "\
+    -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS} ${ADDITIONAL_FLAGS} -DNDEBUG  "\
+    -DITK_USE_GIT_PROTOCOL:BOOL=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_TESTING:BOOL=OFF \
+    -DBUILD_EXAMPLES:BOOL=OFF \
+    -DCMAKE_INSTALL_PREFIX:PATH="${R_PACKAGE_DIR}"/  \
+    -DITK_LEGACY_REMOVE:BOOL=OFF  \
+    -DITK_FUTURE_LEGACY_REMOVE:BOOL=OFF \
+    -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF \
+    -DModule_AdaptiveDenoising:BOOL=ON \
+    -DModule_GenericLabelInterpolator:BOOL=ON \
+    -DKWSYS_USE_MD5:BOOL=ON \
+    -DITK_WRAPPING:BOOL=OFF \
+    -DModule_MGHIO:BOOL=ON \
+    -DModule_ITKDeprecated:BOOL=OFF \
+    -DModule_ITKReview:BOOL=ON \
+    -DModule_ITKVtkGlue:BOOL=OFF \
+    -D ITKGroup_Core=ON \
+    -D Module_ITKReview=ON \
+    -D ITKGroup_Filtering=ON \
+    -D ITKGroup_IO=ON \
+    -D ITKGroup_Numerics=ON \
+    -D ITKGroup_Registration=ON \
+    -D ITKGroup_Segmentation=ON ../ITK
+
+make
+make install
+cd ../../
+
+rm -rf ./ITKR2-builder
+rm inst/ITK/ITK-sourcefile.tar.gz
