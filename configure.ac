@@ -11,13 +11,14 @@ RSCRIPT_BIN=${R_HOME}/bin/Rscript
 NCORES=`${RSCRIPT_BIN} -e "cat(min(2, parallel::detectCores(logical = FALSE)))"`
 current_workdir=${pwd}
 
-CXX_STD=CXX11
+CXX_STD=CXX17
 CXX=`"${R_HOME}/bin/R" CMD config CXX`
 if test -z "${CXX}"; then
     AC_MSG_ERROR([No C++ compiler available])
 fi
 CXXFLAGS=`"${R_HOME}/bin/R" CMD config CXXFLAGS`
 CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
+CXX17FLAGS=`"${R_HOME}/bin/R" CMD config CXX17FLAGS`
 CXX11FLAGS=`"${R_HOME}/bin/R" CMD config CXX11FLAGS`
 AC_LANG(C++)
 AC_REQUIRE_CPP
@@ -25,7 +26,7 @@ AC_PROG_CXX
 
 AC_PATH_PROG(CMAKE_BIN, cmake, no)
 if test x"${CMAKE_BIN}" == x"no"; then
-  . src/scripts/cmake_config.sh
+  . inst/scripts/cmake_config.sh
   if test -z "${CMAKE_BIN}"; then
     ## also error to end configure here
     AC_MSG_ERROR([Could not find 'cmake'.])
@@ -39,13 +40,15 @@ AC_MSG_RESULT([unpacking ITK... to ${builder_path}])
 AC_MSG_RESULT([compiling ITK])
 ./tools/cmake_call.sh "${TMPDIR}"
 
+AC_MSG_RESULT([removing temporary directory ITK-builder])
 rm -rf ${TMPDIR}/ITKR2-builder
-rm inst/ITK/ITK-sourcefile.tar.gz
 
+
+# rm inst/ITK/ITK-sourcefile.tar.gz
 # rm -rf CMakeFiles/ && rm -rf Modules/ && rm -rf CMakeTmp/ \
 # rm -f Makefile && rm -rf Utilities/Doxygen
 
 
 
-AC_CONFIG_FILES([src/Makevars])
+# AC_CONFIG_FILES([src/Makevars])
 AC_OUTPUT

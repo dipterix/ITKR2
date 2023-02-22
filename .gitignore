@@ -7,3 +7,16 @@ autom4te.cache
 config.log
 config.status
 configure~
+adhoc
+src/Makevars
+checkbashisms
+revdep
+Rprof.out
+derby.log
+logs
+.lineno
+configure.ac~
+docs
+.R
+valgrind.R
+valgrind.sh

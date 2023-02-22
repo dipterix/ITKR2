@@ -1,6 +1,0 @@
-CXX_STD = CXX11
-.PHONY: all libs
-
-all: $(SHLIB)
-
-$(SHLIB): libs
